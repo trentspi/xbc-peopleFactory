@@ -30,4 +30,4 @@ const handleSubmit = (event) => {
   `
 }
 
-personForm.onsubmit = handleSubmit();
+personForm.addEventListener('submit', handleSubmit);
