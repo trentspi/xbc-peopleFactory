@@ -3,9 +3,24 @@ const personForm = document.querySelector('form');
 personForm.onsubmit = (event) => {
   event.preventDefault();
   const form = event.target;
-  const personName = form.personName.value;
-  //console.log(form.personName);
-
   const details = document.querySelector('.details');
-  details.innerHTML += `<em>${personName}</em>`;
+
+  const personName = form.personName.value;
+  const hairColor = form.hairColor.value;
+  const age = form.age.value;
+  const birthPlace = form.birthPlace.value;
+
+  const colorDiv = document.createElement('div');
+  colorDiv.style.backgroundColor = hairColor;
+  colorDiv.style.height = '50px';
+  colorDiv.style.width = '100px';
+
+  details.innerHTML = `
+    <ul>
+      <li>Name: ${personName}</li>
+      <li>Hair Color: ${colorDiv.outerHTML}</li>
+      <li>Age: ${age}</li>
+      <li>Birth Place: ${birthPlace}</li>
+    </ul>
+  `
 }
