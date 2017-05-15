@@ -8,7 +8,7 @@ const renderColor = (hairColor) => {
   return colorDiv;
 }
 
-personForm.onsubmit = (event) => {
+const handleSubmit = (event) => {
   event.preventDefault();
   const form = event.target;
   const details = document.querySelector('.details');
@@ -29,3 +29,5 @@ personForm.onsubmit = (event) => {
     </ul>
   `
 }
+
+personForm.onsubmit = handleSubmit();
