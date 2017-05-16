@@ -20,7 +20,7 @@ const formValues = (details) => {
   details.innerHTML = "";
   const elements = document.getElementsByTagName('label');
   const list = document.createElement('ul');
-  for(var i = 0; i < elements.length; ++i) {
+  for(let i = 0; i < elements.length; ++i) {
     const id = elements[i].getAttribute('for');
     const inputvalue = document.getElementById(id);
     if(inputvalue.type == 'color') {
@@ -30,7 +30,7 @@ const formValues = (details) => {
       line.appendChild(color);
       list.appendChild(line);
     }
-    else {
+    else if(inputvalue.type == 'text') {
       const line = document.createElement("li");
       line.textContent = elements[i].textContent + ": " + inputvalue.textContent + inputvalue.value;
       list.appendChild(line);
