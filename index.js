@@ -21,23 +21,21 @@ const formValues = (details) => {
   const elements = document.getElementsByTagName('label');
   const list = document.createElement('ul');
   for(var i = 0; i < elements.length; ++i) {
-    if(!(elements[i].value)) {
-      const id = elements[i].getAttribute('for');
-      const inputvalue = document.getElementById(id);
-      if(inputvalue.type == 'color') {
-        const line = document.createElement('li');
-        const color = renderColor(inputvalue.value);
-        line.innerHTML += `<p>${elements[i].textContent}:</p>`;
-        line.appendChild(color);
-        list.appendChild(line);
-      }
-      else {
-        const line = document.createElement("li");
-        line.textContent = elements[i].textContent + ": " + inputvalue.textContent + inputvalue.value;
-        list.appendChild(line);
-      }
+    const id = elements[i].getAttribute('for');
+    const inputvalue = document.getElementById(id);
+    if(inputvalue.type == 'color') {
+      const line = document.createElement('li');
+      const color = renderColor(inputvalue.value);
+      line.innerHTML += `<p>${elements[i].textContent}:</p>`;
+      line.appendChild(color);
+      list.appendChild(line);
     }
-  }
+    else {
+      const line = document.createElement("li");
+      line.textContent = elements[i].textContent + ": " + inputvalue.textContent + inputvalue.value;
+      list.appendChild(line);
+    }
+    }
   details.appendChild(list);
 }
 
