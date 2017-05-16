@@ -1,42 +1,48 @@
-const personForm = document.querySelector('form');
+(function(){
+  const personForm = document.querySelector('form');
 
-const renderColor = (hairColor) => {
-  const colorDiv = document.createElement('div');
-  colorDiv.style.backgroundColor = hairColor;
-  colorDiv.style.height = '50px';
-  colorDiv.style.width = '100px';
-  return colorDiv;
-}
+  const renderColor = (hairColor) => {
+    const colorDiv = document.createElement('div');
+    colorDiv.style.backgroundColor = hairColor;
+    colorDiv.style.height = '50px';
+    colorDiv.style.width = '100px';
+    return colorDiv;
+  }
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const details = document.querySelector('.details');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const details = document.querySelector('.details');
 
-  formValues(details);
+    formValues(details);
 
-}
+  }
 
-const formValues = (details) => {
-  details.innerHTML = "";
-  const elements = document.getElementsByTagName('label');
-  const list = document.createElement('ul');
-  for(let i = 0; i < elements.length; ++i) {
-    const id = elements[i].getAttribute('for');
-    const inputvalue = document.getElementById(id);
-    if(inputvalue.type == 'color') {
-      const line = document.createElement('li');
-      const color = renderColor(inputvalue.value);
-      line.innerHTML += `<p>${elements[i].textContent}:</p>`;
-      line.appendChild(color);
-      list.appendChild(line);
+  const formValues = (details) => {
+    details.innerHTML = "";
+    const elements = document.getElementsByTagName('label');
+    const list = document.createElement('ul');
+    for(let i = 0; i < elements.length; ++i) {
+      const id = elements[i].getAttribute('for');
+      const inputvalue = document.getElementById(id);
+      if(inputvalue.value) {
+        if(inputvalue.type === 'color') {
+          const line = document.createElement('li');
+          const color = renderColor(inputvalue.value);
+          line.innerHTML += `<p>${elements[i].textContent}:</p>`;
+          line.appendChild(color);
+          list.appendChild(line);
+        }
+        else {
+          const line = document.createElement("li");
+          line.textContent = elements[i].textContent + ": " + inputvalue.textContent + inputvalue.value;
+          list.appendChild(line);
+        }
+      }
     }
-    else if(inputvalue.type == 'text') {
-      const line = document.createElement("li");
-      line.textContent = elements[i].textContent + ": " + inputvalue.textContent + inputvalue.value;
-      list.appendChild(line);
-    }
-    }
-  details.appendChild(list);
-}
+    details.appendChild(list);
+  }
 
-personForm.addEventListener('submit', handleSubmit);
+  personForm.addEventListener('submit', handleSubmit);
+})()
+
+//IIFE
