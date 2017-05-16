@@ -10,6 +10,7 @@ const renderColor = (hairColor) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
+
   const form = event.target;
   const details = document.querySelector('.details');
 
@@ -20,14 +21,33 @@ const handleSubmit = (event) => {
 
   const colorDiv = renderColor(hairColor);
 
-  details.innerHTML = `
-    <ul>
-      <li>Name: ${personName}</li>
-      <li>Hair Color: ${colorDiv.outerHTML}</li>
-      <li>Age: ${age}</li>
-      <li>Birth Place: ${birthPlace}</li>
-    </ul>
-  `
+  formValues(details);
+
+}
+
+const formValues = (details) => {
+  details.innerHTML = "";
+  const elements = document.getElementsByTagName('label');
+  const list = document.createElement('ul');
+  for(var i = 0; i < elements.length; ++i) {
+    if(!(elements[i].value)) {
+      const id = elements[i].getAttribute('for');
+      const inputvalue = document.getElementById(id);
+      if(inputvalue.type == 'color') {
+        const line = document.createElement('li');
+        const color = renderColor(inputvalue.value);
+        line.innerHTML += `<p>${elements[i].textContent}:</p>`;
+        line.appendChild(color);
+        list.appendChild(line);
+      }
+      else {
+        const line = document.createElement("li");
+        line.textContent = elements[i].textContent + ": " + inputvalue.textContent + inputvalue.value;
+        list.appendChild(line);
+      }
+    }
+  }
+  details.appendChild(list);
 }
 
 personForm.addEventListener('submit', handleSubmit);
