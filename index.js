@@ -1,23 +1,26 @@
-{
-  const personForm = document.querySelector('form');
+const App = {
+  init() {
+    const personForm = document.querySelector('form');
+    personForm.addEventListener('submit', this.handleSubmit.bind(this));
+  },
 
-  const renderColor = (hairColor) => {
+  renderColor(hairColor) {
     const colorDiv = document.createElement('div');
     colorDiv.style.backgroundColor = hairColor;
     colorDiv.style.height = '50px';
     colorDiv.style.width = '100px';
     return colorDiv;
-  }
+  },
 
-  const handleSubmit = (event) => {
+  handleSubmit(event) {
     event.preventDefault();
     const details = document.querySelector('.details');
 
-    formValues(details);
+    this.formValues(details);
 
-  }
+  },
 
-  const formValues = (details) => {
+  formValues(details) {
     details.innerHTML = "";
     const elements = document.getElementsByTagName('label');
     const list = document.createElement('ul');
@@ -27,7 +30,7 @@
       if(inputvalue.value) {
         if(inputvalue.type === 'color') {
           const line = document.createElement('li');
-          const color = renderColor(inputvalue.value);
+          const color = this.renderColor(inputvalue.value);
           line.innerHTML += `<p>${elements[i].textContent}:</p>`;
           line.appendChild(color);
           list.appendChild(line);
@@ -40,9 +43,9 @@
       }
     }
     details.appendChild(list);
-  }
-
-  personForm.addEventListener('submit', handleSubmit);
+  },
 }
+
+App.init();
 
 //Block Wrapping
